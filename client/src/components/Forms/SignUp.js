@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Form, Button, Alert, InputGroup, Row, Col } from 'react-bootstrap';
+import { Form, Button, Alert, Row, Col } from 'react-bootstrap';
 import './style.css';
 
 // Here we import a helper function that will check if the email is valid
 import { checkPassword, validateUsername, validateEmail, validateId } from '../../utils/helpers';
 
-function SingUp() {
+const SingUp = () => {
     // Create state variables for the fields in the form
     // We are also setting their initial values to an empty string
     const [name, setName] = useState('');
@@ -100,8 +100,8 @@ function SingUp() {
                                 <Form.Label>Date of Birth</Form.Label>
                                 <Form.Control
                                     size='lg'
-                                    type="date" 
-                                    name="dob" 
+                                    type="date"
+                                    name="dob"
                                     placeholder="Date of Birth"
                                     value={dob}
                                     onChange={handleInputChange} />

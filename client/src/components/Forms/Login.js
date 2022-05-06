@@ -6,7 +6,7 @@ import './style.css';
 // Here we import a helper function that will check if the email is valid
 import { validatePassword, validateUsername } from '../../utils/helpers';
 
-function Login() {
+const Login = () => {
   // Create state variables for the fields in the form
   // We are also setting their initial values to an empty string
   const [userName, setUserName] = useState('');
