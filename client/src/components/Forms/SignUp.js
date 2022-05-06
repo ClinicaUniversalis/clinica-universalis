@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert, InputGroup, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import './style.css';
 
 // Here we import a helper function that will check if the email is valid
