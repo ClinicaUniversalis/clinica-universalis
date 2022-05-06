@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import { isNilOrEmpty } from '../utils/helpers';
+import { isNilOrEmpty } from '../../utils/helpers';
 import './style.css';
 
 const ResetPassword = () => {
@@ -25,7 +25,7 @@ const ResetPassword = () => {
     const [isSendingCode, setIsSendingCode] = useState(false);
 
     function validateCodeForm() {
-        return !isNilOrEmpty(email);
+        return !isNilOrEmpty(fields.email);
     }
 
     const handleSendCodeClick = async (event) => {
