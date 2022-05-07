@@ -1,0 +1,30 @@
+.myApps {
+    overflow-y: auto !important;
+    height: 88vh;
+}
+
+.myApps-card {
+    text-align: center;
+}
+
+.myApps-image {
+    padding: 5px;
+    margin: auto;
+    display: block;
+    width: 100%;
+    height: 15vw;
+    object-fit:scale-down;
+}
+
+.myApps-card-body {
+    color: black;
+}
+
+.myApps-card-deck a {
+    height: 400px;
+    width: 300px;
+}
+
+.myApps-card-text {
+    height: 100px;
+}

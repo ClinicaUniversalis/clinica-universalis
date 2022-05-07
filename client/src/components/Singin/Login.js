@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
+import { Form, Button, Alert, Card, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import './style.css';
 
 // Here we import a helper function that will check if the email is valid
 import { validatePassword, validateUsername } from '../../utils/helpers';
@@ -48,16 +47,16 @@ const Login = () => {
   };
 
   return (
-    <div className="row d-flex justify-content-center align-items-center h-100">
-      <div className="col col-xl-10">
-        <div className="card" style={{ borderRadius: "1rem" }}>
-          <div className="row g-0">
-            <div className="col-md-6 col-lg-5 d-none d-md-block">
+    <Row className="d-flex justify-content-center align-items-center h-100">
+      <Col xl={10}>
+        <Card style={{ borderRadius: "1rem" }}>
+          <Row className="g-0">
+            <Col md={6} lg={5} className="d-none d-md-block">
               <img src="https://st.depositphotos.com/1017986/3055/i/950/depositphotos_30551731-stock-photo-female-doctor-with-stethoscope-and.jpg?forcejpeg=true"
                 alt="login form" className="img-fluid" style={{ borderRadius: "1rem 0 0 1rem" }} />
-            </div>
-            <div className="col-md-6 col-lg-7 d-flex align-items-center">
-              <div className="card-body p-4 p-lg-5 text-black">
+            </Col>
+            <Col md={6} lg={7} className="d-flex align-items-center">
+              <Card.Body className="card-body p-4 p-lg-5 text-black">
                 {/* Login form section */}
                 <Form>
                   <h5 className="fw-normal mb-3 pb-3" style={{ letterSpacing: "1px" }}>Sign into your Universalis account</h5>
@@ -103,12 +102,12 @@ const Login = () => {
                     <p>{errorMessage}</p>
                   </Alert>
                 )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+              </Card.Body>
+            </Col>
+          </Row>
+        </Card>
+      </Col>
+    </Row>
   );
 }
 

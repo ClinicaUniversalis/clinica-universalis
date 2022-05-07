@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Alert, Row, Col } from 'react-bootstrap';
-import './style.css';
+import { Form, Button, Alert, Row, Col, Card } from 'react-bootstrap';
 
 // Here we import a helper function that will check if the email is valid
 import { checkPassword, validateUsername, validateEmail, validateId } from '../../utils/helpers';
@@ -65,9 +64,9 @@ const SingUp = () => {
     };
 
     return (
-        <div className="row d-flex justify-content-center align-items-center h-100">
-            <div className="card" style={{ borderRadius: "1rem" }}>
-                <div className="card-body p-4 p-lg-5 text-black">
+        <Row className="d-flex justify-content-center align-items-center h-100">
+            <Card style={{ borderRadius: "1rem" }}>
+                <Card.Body className="p-4 p-lg-5 text-black">
                     {/* SignUp form section */}
                     <Form>
                         <h5 className="fw-normal mb-3 pb-3" style={{ letterSpacing: "1px" }}>Sign up</h5>
@@ -176,9 +175,9 @@ const SingUp = () => {
                             <p>{errorMessage}</p>
                         </Alert>
                     )}
-                </div>
-            </div>
-        </div>
+                </Card.Body>
+            </Card>
+        </Row>
     );
 }
 

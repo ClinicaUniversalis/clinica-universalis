@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { isNilOrEmpty } from '../../utils/helpers';
-import './style.css';
 
 const ResetPassword = () => {
     const useFormFields = (initialState) => {
