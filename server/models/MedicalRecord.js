@@ -19,17 +19,6 @@ const medicalRecordSchema = new Schema(
   }
 );
 
-/*
-// Create a virtual property `reactionsCount` that gets the amount of reactions per thought
-toughtSchema
-  .virtual('reactionCount')
-  // Getter
-  .get(function () {
-    return this.reactions.length;
-  });
-*/
-
-// Initialize our Thought model
 const MedicalRecord = model('medicalrecord', medicalRecordSchema);
 
 module.exports = MedicalRecord;

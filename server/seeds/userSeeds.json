@@ -1,0 +1,53 @@
+[
+    {
+        "name": "Bryce",
+        "lastname": "Wayne",    
+        "birthdate": "05/10/1970",
+        "specialty": "Otorrinolaringologia",
+        "licenseid": "1234567",    
+        "email": "theBatman@hotmail.com",
+        "username": "rataAlada",
+        "password": "1234popolopo1234",
+        "createdAt": "12/12/2004",
+        "patients": [
+        ],
+
+        "medicalrecords": [
+    ]
+
+  },
+  {
+    "name": "Anthony",
+    "lastname": "Stark",    
+    "birthdate": "07/09/1982",
+    "specialty": "Traumatologia",
+    "licenseid": "12365678",    
+    "email": "elIronMan@hotmail.com",
+    "username": "ironMan",
+    "password": "1234popolopo1234",
+    "createdAt": "12/12/2010",
+    "patients": [
+    ],
+
+    "medicalrecords": [
+]
+
+},
+{
+    "name": "Bruce",
+    "lastname": "Banner",    
+    "birthdate": "10/02/1989",
+    "specialty": "Virologia",
+    "licenseid": "1634678",    
+    "email": "elHolk@hotmail.com",
+    "username": "BruceBanner",
+    "password": "1234popolopo1234",
+    "createdAt": "02/04/2013",
+    "patients": [
+    ],
+
+    "medicalrecords": [
+]
+
+}
+]

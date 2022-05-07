@@ -1,26 +1,18 @@
 const { Schema, model } = require('mongoose');
 
-/*
-const validateEmail = function(email) {
-  var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  return re.test(email)
-};
-*/
-
 // Schema to create User model
 const userSchema = new Schema(
   {
     name: { type: String, required:true, trim:true },
     lastname: { type: String, required:true, trim:true },    
-    birthday: { type: Date, required:true, trim:true },
-    speciality: { type: String, required:true, trim:true },
+    birthdate: { type: Date, required:true, trim:true },
+    specialty: { type: String, required:true, trim:true },
+    idDocument: { type: String, unique:true, required:true, trim:true },
     licenseid: { type: String, unique:true, required:true, trim:true },    
     email: { 
       type: String, 
       unique:true, 
-      required:true,
-     /* validate: [validateEmail, 'Please fill a valid email address'],
-      match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']*/
+      required:true
      },
     username: { type: String, unique:true, required:true, trim:true },
     password: { type: String, required:true, trim:true },
@@ -51,7 +43,6 @@ const userSchema = new Schema(
   }
 );
 
-// Create a virtual property `patientCount` that gets all the user´s friends
 userSchema
   .virtual('patientCount').get(function () {
     return this.patients.length;

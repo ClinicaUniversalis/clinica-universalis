@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Bryce",
+        "lastname": "Wayne",    
+        "birthdate": "05/10/1970",
+        "email": "theBatman@hotmail.com",
+        "username": "rataAlada",
+        "password": "1234popolopo1234",
+        "createdAt": "12/12/2004",
+        "medicalrecords": [
+    ]
+
+  }
+]
