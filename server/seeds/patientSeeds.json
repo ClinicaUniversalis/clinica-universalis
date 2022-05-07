@@ -1,0 +1,79 @@
+[
+    {
+        "name": "Norman",
+        "lastname": "Osborn",    
+        "birthdate": "08/12/1949",
+        "officialID": "OSNO491208HCHSBR02",
+        "idType": "CURP",
+        "email": "elDuende@hotmail.com",
+        "bloodgroup": "O-",
+        "phone": "8123340275",
+        "createdAt": "12/12/2004",
+        "medicalrecords": [
+            "6"
+    ]
+
+  },
+  {
+    "name": "Alex",
+    "lastname": "Syntec",    
+    "birthdate": "11/05/1982",
+    "officialID": "SYAL820523HPBYNL03",
+    "idType": "CURP",
+    "email": "alexSyntex@hotmail.com",
+    "bloodgroup": "O-",
+    "phone": "8223347275",
+    "createdAt": "12/12/2004",
+    "medicalrecords": [
+        "7",
+        "4"
+]
+
+},
+{
+    "name": "Test",
+    "lastname": "User",    
+    "birthdate": "08/12/1959",
+    "officialID": "44638238874",
+    "idType": "SSN",
+    "email": "testUser@hotmail.com",
+    "bloodgroup": "O-",
+    "phone": "8143340274",
+    "createdAt": "12/12/2004",
+    "medicalrecords": [
+        "1"
+]
+
+},
+{
+    "name": "Another",
+    "lastname": "Testuser",    
+    "birthdate": "04/04/1967",
+    "officialID": "TEAN670430MJLSTN01",
+    "idType": "CURP",
+    "email": "anotherTestuser@hotmail.com",
+    "bloodgroup": "O-",
+    "phone": "8643680015",
+    "createdAt": "12/12/2004",
+    "medicalrecords": [
+        "2",
+        "5"
+]
+
+},
+{
+    "name": "Guillermo",
+    "lastname": "Lazo",    
+    "birthdate": "08/07/1985",
+    "officialID": "LAGU850708HTXLZL01",
+    "idType": "CURP",
+    "email": "guillermolazo@hotmail.com",
+    "bloodgroup": "O-",
+    "phone": "8633930155",
+    "createdAt": "12/12/2004",
+    "medicalrecords": [
+        "3"
+]
+
+}
+]
