@@ -1,0 +1,65 @@
+[
+    {
+    "medicalstory": "Caida por las escaleras",
+    "currentcondition": "Dolor de cabeza",
+    "physicalexploration": "Chichón en la chompa",
+    "diagnostic": "Contusión",
+    "treatment_prescription": "Hielos en la cabeza y Paracetamol: 2 pastillas cada 30 minutos por 7 días ",
+    "orderofstudies": "Ninguno",            
+    "createdAt": "01/01/2020"    
+  },
+  {
+    "medicalstory": "Migrañas constantes",
+    "currentcondition": "Dolor de cabeza",
+    "physicalexploration": "Fiebre",
+    "diagnostic": "Estrés",
+    "treatment_prescription": "Paracetamol: 2 pastillas cada 30 minutos por 7 días ",
+    "orderofstudies": "Ninguno",            
+    "createdAt": "01/01/2020"  
+  },
+  {
+    "medicalstory": "Caida en hielo",
+    "currentcondition": "Dolor de codo",
+    "physicalexploration": "Chichón en la codo",
+    "diagnostic": "Astilladura en el cúbito",
+    "treatment_prescription": "Hielos en la codo y Paracetamol: 2 pastillas cada 30 minutos por 7 días ",
+    "orderofstudies": "Radiología",            
+    "createdAt": "01/01/2020"    
+  },
+  {
+    "medicalstory": "Comió tacos en la calle a diario durante todo un mes",
+    "currentcondition": "Dolor de estómago",
+    "physicalexploration": "Movimiento involuntario interno en zona lumbar",
+    "diagnostic": "Lombrices",
+    "treatment_prescription": "Bacteriobam: 1 pastilla al día por 7 días, Penicilina: 2 tabletas cada 8 horas por 5 días y Paracetamol: 2 pastillas cada 10 minutos por 20 días ",
+    "orderofstudies": "Ninguno",            
+    "createdAt": "01/01/2020"    
+  },
+  {
+    "medicalstory": "Dolor durante un partido de fucho",
+    "currentcondition": "Dolor testicular",
+    "physicalexploration": "Enrojecimiento en la zona pélvica e hinchazón testicular",
+    "diagnostic": "Huevo torcido",
+    "treatment_prescription": "Vics en los testículos y Paracetamol: 2 pastillas cada 30 minutos por 7 días ",
+    "orderofstudies": "Ninguno",            
+    "createdAt": "01/01/2020"    
+  },
+  {
+    "medicalstory": "Caminó descalzo en hielo",
+    "currentcondition": "Dolor de garganta",
+    "physicalexploration": "Inflamación de garganta",
+    "diagnostic": "Gripe Aviar",
+    "treatment_prescription": "Penicilina: 2 tabletas al día por 7 días y Paracetamol: 2 pastillas cada 30 minutos por 7 días ",
+    "orderofstudies": "Ninguno",            
+    "createdAt": "01/01/2020"    
+  },
+  {
+    "medicalstory": "Salidas constantes durante pandemia",
+    "currentcondition": "Dolor de cabeza, fiebre y dificultad para respirar",
+    "physicalexploration": "Fiebre, ruidos al respirar",
+    "diagnostic": "Exposición a elemento dañino: Torres 5G",
+    "treatment_prescription": "Vics en el pecho y Dioxido de cloro: 1 servida cada 8 horas por 5 días ",
+    "orderofstudies": "Extracción de líquido de rodillas",            
+    "createdAt": "01/01/2020"    
+  }
+]
