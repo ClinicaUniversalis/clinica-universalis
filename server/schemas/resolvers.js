@@ -7,14 +7,11 @@ const resolvers = {
         },
         patients: async() => {
             return await Patient.find({});
+        },
+        medicalrecords: async() => {
+            return await MedicalRecord.find({})
         }
     },
-
-    getUsers: {
-        users: async() => {
-            return await User.find({});
-        }
-    }
 };
 
 module.exports = resolvers;

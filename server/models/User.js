@@ -7,7 +7,8 @@ const userSchema = new Schema(
     lastname: { type: String, required:true, trim:true },    
     birthdate: { type: Date, required:true, trim:true },
     specialty: { type: String, required:true, trim:true },
-    idDocument: { type: String, unique:true, required:true, trim:true },
+    officialID: { type: String, unique:true, required:true, trim:true },
+    idType: { type: String, required:true},
     licenseid: { type: String, unique:true, required:true, trim:true },    
     email: { 
       type: String, 

@@ -7,6 +7,10 @@ const typeDefs = gql`
         lastname: String!
         birthdate: String!
         email: String!
+        officialID: String!
+        idType: String!
+        additionalID: String
+        additionalIDType: String
         licenseid: String!
         specialty: String!
         bloodgroup: String
@@ -22,6 +26,10 @@ const typeDefs = gql`
         lastname: String!
         birthdate: String!
         email: String!
+        officialID: String!
+        idType: String!
+        additionalID: String
+        additionalIDType: String
         bloodgroup: String
         phone: String
         createdAt: String!
