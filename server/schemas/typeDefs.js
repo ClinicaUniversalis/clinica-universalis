@@ -47,11 +47,13 @@ const typeDefs = gql`
         users: [User]
         patients: [Patient]
         medicalrecords: [MedicalRecord]
+        user(userId: ID!): User
     }
 
     type Mutation {
         addUser(name: String!, lastname: String!, birthdate: Date!, email: String!, licenseid: String!, specialty: String!, username: String!, password: String!): User
         editUser(userId: ID!, name: String, lastname: String, birthdate: String, email: String): User
+        deleteUser(userId: ID!): User
         addPatient(name: String!, lastname: String!, birthdate: String!, email: String!, officialID: String!, bloodgroup: String, phone: String): Patient
     }
 `;

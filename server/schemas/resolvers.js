@@ -6,13 +6,16 @@ const resolvers = {
 
     Query: {
         users: async () => {
-            return await User.find({});
+            return User.find({});
         },
         patients: async () => {
-            return await Patient.find({});
+            return Patient.find({});
         },
         medicalrecords: async () => {
-            return await MedicalRecord.find({})
+            return MedicalRecord.find({})
+        },
+        user: async (parent, { userId }) => {
+            return User.findOne({ _id: userId })
         }
     },
 
@@ -59,6 +62,10 @@ const resolvers = {
                 { runValidators: true, new: true }
             )
         },
+//TODO: Check it out in class, since if a user(doctor) is deleted, what is going to happen with all their patients?
+        deleteUser: async (parent, { userId }) => {
+            return User.findOneAndRemove({ _id: userId });
+        }
     },
 };
 
