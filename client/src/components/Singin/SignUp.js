@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { Form, Button, Alert, InputGroup, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import './style.css';
+import { Form, Button, Alert, Row, Col, Card } from 'react-bootstrap';
 
 // Here we import a helper function that will check if the email is valid
 import { checkPassword, validateUsername, validateEmail, validateId } from '../../utils/helpers';
 
-function SingUp() {
+const SingUp = () => {
     // Create state variables for the fields in the form
     // We are also setting their initial values to an empty string
     const [name, setName] = useState('');
@@ -14,7 +12,7 @@ function SingUp() {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [dob, setDob] = useState('');
-    const [speciality, setSpeciality] = useState('');
+    const [specialty, setSpecialty] = useState('');
     const [email, setEmail] = useState('');
     const [licenseid, setlicenseid] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -34,8 +32,8 @@ function SingUp() {
             setUserName(inputValue);
         } else if (inputType === 'password') {
             setPassword(inputValue);
-        } else if (inputType === 'speciality') {
-            setSpeciality(inputValue);
+        } else if (inputType === 'specialty') {
+            setSpecialty(inputValue);
         } else if (inputType === 'dob') {
             setDob(inputValue);
         } else if (inputType === 'licenseid') {
@@ -66,9 +64,9 @@ function SingUp() {
     };
 
     return (
-        <div className="row d-flex justify-content-center align-items-center h-100">
-            <div className="card" style={{ borderRadius: "1rem" }}>
-                <div className="card-body p-4 p-lg-5 text-black">
+        <Row className="d-flex justify-content-center align-items-center h-100">
+            <Card style={{ borderRadius: "1rem" }}>
+                <Card.Body className="p-4 p-lg-5 text-black">
                     {/* SignUp form section */}
                     <Form>
                         <h5 className="fw-normal mb-3 pb-3" style={{ letterSpacing: "1px" }}>Sign up</h5>
@@ -101,21 +99,21 @@ function SingUp() {
                                 <Form.Label>Date of Birth</Form.Label>
                                 <Form.Control
                                     size='lg'
-                                    type="date" 
-                                    name="dob" 
+                                    type="date"
+                                    name="dob"
                                     placeholder="Date of Birth"
                                     value={dob}
                                     onChange={handleInputChange} />
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridSpeciality">
-                                <Form.Label>Speciality</Form.Label>
+                                <Form.Label>Specialty</Form.Label>
                                 <Form.Control
                                     size='lg'
-                                    type="speciality"
-                                    placeholder="Speciality"
-                                    name='speciality'
-                                    value={speciality}
+                                    type="specialty"
+                                    placeholder="Specialty"
+                                    name='specialty'
+                                    value={specialty}
                                     onChange={handleInputChange} />
                             </Form.Group>
                         </Row>
@@ -177,9 +175,9 @@ function SingUp() {
                             <p>{errorMessage}</p>
                         </Alert>
                     )}
-                </div>
-            </div>
-        </div>
+                </Card.Body>
+            </Card>
+        </Row>
     );
 }
 

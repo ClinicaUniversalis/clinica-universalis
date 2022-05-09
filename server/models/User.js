@@ -3,21 +3,19 @@ const { Schema, model } = require('mongoose');
 // Schema to create User model
 const userSchema = new Schema(
   {
-    name: { type: String, required:true, trim:true },
-    lastname: { type: String, required:true, trim:true },    
-    birthdate: { type: Date, required:true, trim:true },
-    specialty: { type: String, required:true, trim:true },
-    officialID: { type: String, unique:true, required:true, trim:true },
-    idType: { type: String, required:true},
-    licenseid: { type: String, unique:true, required:true, trim:true },    
-    email: { 
-      type: String, 
-      unique:true, 
-      required:true
-     },
-    username: { type: String, unique:true, required:true, trim:true },
-    password: { type: String, required:true, trim:true },
-    createdAt: {type: Date,default: Date.now},
+    name: { type: String, required: true, trim: true },
+    lastname: { type: String, required: true, trim: true },
+    birthdate: { type: Date, required: true, trim: true },
+    username: { type: String, unique: true, required: true, trim: true },
+    password: { type: String, required: true, trim: true },
+    email: {
+      type: String,
+      unique: true,
+      required: true
+    },
+    licenseid: { type: String, unique: true, required: true, trim: true },
+    specialty: { type: String, required: true, trim: true },
+    createdAt: { type: Date, default: Date.now },
 
     patients: [
       {
