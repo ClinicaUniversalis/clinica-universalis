@@ -1,21 +1,20 @@
 const { gql } = require('apollo-server-express');
+const { GraphQLScalarType, Kind } = require('graphql');
 
 const typeDefs = gql`
+    scalar Date
+
     type User {
         _id: ID
         name: String!
         lastname: String!
-        birthdate: String!
+        birthdate: Date!
+        username: String!
+        password: String!
         email: String!
-        officialID: String!
-        idType: String!
-        additionalID: String
-        additionalIDType: String
         licenseid: String!
         specialty: String!
-        bloodgroup: String
-        phone: String
-        createdAt: String!
+        createdAt: Date!
         medicalrecords: [MedicalRecord]!
         patients: [Patient]
     }
@@ -24,15 +23,12 @@ const typeDefs = gql`
         _id: ID
         name: String!
         lastname: String!
-        birthdate: String!
+        birthdate: Date!
         email: String!
         officialID: String!
-        idType: String!
-        additionalID: String
-        additionalIDType: String
         bloodgroup: String
         phone: String
-        createdAt: String!
+        createdAt: Date!
         medicalrecords: [MedicalRecord]!
     }
 
@@ -53,17 +49,28 @@ const typeDefs = gql`
         medicalrecords: [MedicalRecord]
     }
 
-    type getUsers {
-        users: [User]
-    }
-
-    type getPatient {
-        patients: [Patient]
-    }
-
-    type getMedicalRecords {
-        medicalrecords: [MedicalRecord]
+    type Mutation {
+        addUser(name: String!, lastname: String!, birthdate: Date!, email: String!, licenseid: String!, specialty: String!, username: String!, password: String!): User
+        editUser(userId: ID!, name: String, lastname: String, birthdate: String, email: String): User
+        addPatient(name: String!, lastname: String!, birthdate: String!, email: String!, officialID: String!, bloodgroup: String, phone: String): Patient
     }
 `;
 
-module.exports = typeDefs;
+const dateScalar = new GraphQLScalarType({
+  name: 'Date',
+  description: 'Date custom scalar type',
+  serialize(value) {
+    return value.getTime(); // Convert outgoing Date to integer for JSON
+  },
+  parseValue(value) {
+    return new Date(value); // Convert incoming integer to Date
+  },
+  parseLiteral(ast) {
+    if (ast.kind === Kind.INT) {
+      return new Date(parseInt(ast.value, 10)); // Convert hard-coded AST string to integer and then to Date
+    }
+    return null; // Invalid hard-coded value (not an integer)
+  },
+});
+
+module.exports = { typeDefs, dateScalar };
