@@ -12,10 +12,13 @@ const resolvers = {
             return Patient.find({});
         },
         medicalrecords: async () => {
-            return MedicalRecord.find({})
+            return MedicalRecord.find({});
         },
         user: async (parent, { userId }) => {
-            return User.findOne({ _id: userId })
+            return User.findOne({ _id: userId });
+        },
+        patient: async (parent, { patientId }) => {
+            return Patient.findOne({ _id: patientId });
         }
     },
 
@@ -41,7 +44,7 @@ const resolvers = {
                 password
             })
         },
-
+        //TODO: Ask how to update any params that are sent maybe with ...params?
         editUser: async (parent, {
             userId,
             name,
@@ -62,10 +65,60 @@ const resolvers = {
                 { runValidators: true, new: true }
             )
         },
-//TODO: Check it out in class, since if a user(doctor) is deleted, what is going to happen with all their patients?
+        //TODO: Check it out in class, since if a user(doctor) is deleted, what is going to happen with all their patients?
         deleteUser: async (parent, { userId }) => {
             return User.findOneAndRemove({ _id: userId });
-        }
+        },
+        //Patient mutations
+        addPatient: async (parent, {
+            name,
+            lastname,
+            birthdate,
+            officialID,
+            email,
+            bloodgroup,
+            phone
+        }) => {
+            return Patient.create({
+                name,
+                lastname,
+                birthdate,
+                officialID,
+                email,
+                bloodgroup,
+                phone
+            })
+        },
+
+        editPatient: async (parent, {
+            patientId,
+            name,
+            lastname,
+            birthdate,
+            email,
+            bloodgroup,
+            phone
+        }) => {
+            return Patient.findOneAndUpdate(
+                { _id: patientId },
+                {
+                    $set: {
+                        name,
+                        lastname,
+                        birthdate,
+                        email,
+                        bloodgroup,
+                        phone
+                    }
+                },
+                { runValidators: true, new: true }
+            )
+        },
+
+        deletePatient: async (parent, { patientId }) => {
+            return Patient.findOneAndRemove({ _id: patientId });
+        },
+        //TODO: ADD MEDICAL RECORDS MUTATIONS AND QUERIES
     },
 };
 

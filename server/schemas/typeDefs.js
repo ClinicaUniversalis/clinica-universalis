@@ -40,21 +40,24 @@ const typeDefs = gql`
         diagnostic: String!
         treatment_prescription: String!
         orderofstudies: String!
-        createdAt: String!
+        createdAt: Date!
     }
 
     type Query {
         users: [User]
+        user(userId: ID!): User
         patients: [Patient]
         medicalrecords: [MedicalRecord]
-        user(userId: ID!): User
+        patient(patientId: ID!) : Patient
     }
 
     type Mutation {
         addUser(name: String!, lastname: String!, birthdate: Date!, email: String!, licenseid: String!, specialty: String!, username: String!, password: String!): User
         editUser(userId: ID!, name: String, lastname: String, birthdate: String, email: String): User
         deleteUser(userId: ID!): User
-        addPatient(name: String!, lastname: String!, birthdate: String!, email: String!, officialID: String!, bloodgroup: String, phone: String): Patient
+        addPatient(name: String!, lastname: String!, birthdate: Date!, officialID: String!, email: String!, bloodgroup: String, phone: String): Patient
+        editPatient(patientId: ID!, name: String, lastname: String, birthdate: Date, email: String, bloodgroup: String, phone: String): Patient
+        deletePatient(patientId: ID!): Patient
     }
 `;
 
