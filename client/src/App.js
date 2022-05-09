@@ -6,8 +6,8 @@ import SingUp from './components/Singin/SignUp';
 import Dashboard from './components/Dashboard';
 import Patients from './components/Patients/Patients';
 import ResetPassword from './components/Singin/ResetPassword';
-import NewPatient from './components/Forms/NewPatient'
-import NewMedicalRecord from './components/Forms/NewMedicalRecord'
+import CreateEditPatient from './components/Patients/CreateEditPatient'
+import NewMedicalRecord from './components/Patients/NewMedicalRecord'
 import {
   BrowserRouter as Router,
   Route,
@@ -34,7 +34,7 @@ function App() {
             <Nav className="me-auto">
               <Nav.Link href="/login">Home</Nav.Link>
               <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-              <Nav.Link className='btn dark' href="/lo">Logout</Nav.Link>
+              <Nav.Link className='btn dark' href="/home">Logout</Nav.Link>
             </Nav>
           </Container>
         </Navbar>
@@ -46,7 +46,7 @@ function App() {
               <Route path='/signup' element={<SingUp />}></Route>
               <Route path='/dashboard' element={<Dashboard />}></Route>
               <Route path='/patients' element={<Patients />}></Route>
-              <Route path='/newpatient' element={<NewPatient />}></Route>
+              <Route path='/newpatient' element={<CreateEditPatient />}></Route>
               <Route path='/newmedicalrecord' element={<NewMedicalRecord />}></Route>
               {/* TODO add more routes */}
             </Routes>

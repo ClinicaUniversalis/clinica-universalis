@@ -9,10 +9,19 @@ import { render } from 'react-dom';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import Spinner from '../../components/Spinner/Spinner';
+import CreateEditPatient from './CreateEditPatient';
 
 const PatientsGrid = () => {
-    const gridRef = useRef(); 
+    const gridRef = useRef();
     const [rowData, setRowData] = useState(); // Set rowData to Array of Objects, one Object per Row
+
+    const handleCreatePatientModalOpen = () => {
+        <CreateEditPatient showModal={true} />
+    };
+
+    const handleEditPatientModalClose = () => {
+
+    };
 
     // Column Definition results in one Column.
     const [columnDefs, setColumnDefs] = useState([
@@ -61,7 +70,7 @@ const PatientsGrid = () => {
                         size={60}
                         style={{ padding: '15px' }}
                         className={'text-primary'}
-                    //onClick={() => handleCreatePatientModalOpen()}
+                        onClick={() => handleCreatePatientModalOpen()}
                     />
                 </NavLink>
             </Row>
