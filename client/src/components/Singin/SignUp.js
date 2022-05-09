@@ -12,7 +12,7 @@ const SingUp = () => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [dob, setDob] = useState('');
-    const [speciality, setSpeciality] = useState('');
+    const [specialty, setSpecialty] = useState('');
     const [email, setEmail] = useState('');
     const [license, setLicense] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -32,8 +32,8 @@ const SingUp = () => {
             setUserName(inputValue);
         } else if (inputType === 'password') {
             setPassword(inputValue);
-        } else if (inputType === 'speciality') {
-            setSpeciality(inputValue);
+        } else if (inputType === 'specialty') {
+            setSpecialty(inputValue);
         } else if (inputType === 'dob') {
             setDob(inputValue);
         } else if (inputType === 'license') {
@@ -107,13 +107,13 @@ const SingUp = () => {
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridSpeciality">
-                                <Form.Label>Speciality</Form.Label>
+                                <Form.Label>Specialty</Form.Label>
                                 <Form.Control
                                     size='lg'
-                                    type="speciality"
-                                    placeholder="Speciality"
-                                    name='speciality'
-                                    value={speciality}
+                                    type="specialty"
+                                    placeholder="Specialty"
+                                    name='specialty'
+                                    value={specialty}
                                     onChange={handleInputChange} />
                             </Form.Group>
                         </Row>
