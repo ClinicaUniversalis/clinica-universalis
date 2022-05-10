@@ -1,5 +1,7 @@
 const { User, Patient, MedicalRecord } = require("../models");
-const { dateScalar } = require('./typeDefs')
+const { dateScalar } = require('./typeDefs');
+const { AuthenticationError } = require('apollo-server-express');
+const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Date: dateScalar,
@@ -19,7 +21,10 @@ const resolvers = {
         },
         patient: async (parent, { patientId }) => {
             return Patient.findOne({ _id: patientId });
-        }
+        },
+        medicalrecord: async (parent, { medicalRecordId }) => {
+            return Patient.findOne({ _id: medicalRecordId });
+        },
     },
 
     Mutation: {
@@ -50,7 +55,9 @@ const resolvers = {
             name,
             lastname,
             birthdate,
-            email
+            email,
+            username,
+            password
         }) => {
             return User.findOneAndUpdate(
                 { _id: userId },
@@ -59,7 +66,9 @@ const resolvers = {
                         name,
                         lastname,
                         birthdate,
-                        email
+                        email,
+                        username,
+                        password
                     }
                 },
                 { runValidators: true, new: true }
@@ -118,7 +127,123 @@ const resolvers = {
         deletePatient: async (parent, { patientId }) => {
             return Patient.findOneAndRemove({ _id: patientId });
         },
-        //TODO: ADD MEDICAL RECORDS MUTATIONS AND QUERIES
+        //DOUBLE CHECK WITH TEACHERS
+        addMedicalRecord: async (parent, {
+            userId,
+            patientId,
+            medicalstory,
+            currentcondition,
+            physicalexploration,
+            diagnostic,
+            treatment_prescription,
+            orderofstudies
+        }) => {
+            try {
+                const medicalRecord = await MedicalRecord.create({
+                    medicalstory,
+                    currentcondition,
+                    physicalexploration,
+                    diagnostic,
+                    treatment_prescription,
+                    orderofstudies
+                });
+                //Put id in user table
+                const user = await User.findOneAndUpdate(
+                    { _id: userId },
+                    { $addToSet: { medicalrecords: medicalRecord._id } },
+                    { new: true }
+                );
+
+                if (!user) {
+                    console.log('No user found')
+                } else {
+                    console.log('Medicalrecord added to User 🎉')
+                }
+
+                //Put id in patient table
+                const patient = await Patient.findOneAndUpdate(
+                    { _id: patientId },
+                    { $addToSet: { medicalrecords: medicalRecord._id } },
+                    { new: true }
+                );
+
+                if (!patient) {
+                    console.log('No patient found')
+                } else {
+                    console.log('Medicalrecord added to Patient 🎉')
+                }
+
+                return { medicalRecord, user, patient };
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        editMedicalRecord: async (parent, {
+            medicalRecordId,
+            medicalstory,
+            currentcondition,
+            physicalexploration,
+            diagnostic,
+            treatment_prescription,
+            orderofstudies
+        }) => {
+            return MedicalRecord.findOneAndUpdate(
+                { _id: medicalRecordId },
+                {
+                    $set: {
+                        medicalstory,
+                        currentcondition,
+                        physicalexploration,
+                        diagnostic,
+                        treatment_prescription,
+                        orderofstudies
+                    }
+                },
+                { runValidators: true, new: true }
+            )
+        },
+
+        deleteMedicalRecord: async (parent, { medicalRecordId }) => {
+            try {
+                const medicalRecord = await MedicalRecord.findOneAndRemove({ _id: medicalRecordId });
+
+                if (!medicalRecord) {
+                    console.log('No medicalrecord found with this ID');
+                } else {
+                    //if we found medicalrecord update User
+                    const user = await User.findOneAndUpdate(
+                        { medicalrecords: medicalRecordId },
+                        { $pull: { medicalrecords: medicalRecordId } },
+                        { new: true }
+                    );
+
+                    if (!user) {
+                        console.log('No user found')
+                    } else {
+                        console.log('Medical record removed from User 🎉')
+                    }
+
+                    //Put id in patient table
+                    const patient = await Patient.findOneAndUpdate(
+                        { medicalrecords: medicalRecordId },
+                        { $pull: { medicalrecords: medicalRecordId } },
+                        { new: true }
+                    );
+                    if (!patient) {
+                        console.log('No patient found')
+                    } else {
+                        console.log('Medical record removed from Patient 🎉')
+                    }
+
+                    console.log('Medical record removed 🎉');
+
+                    return { medicalRecord, user, patient };
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        },
     },
 };
 
