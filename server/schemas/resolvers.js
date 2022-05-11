@@ -74,7 +74,7 @@ const resolvers = {
                 { runValidators: true, new: true }
             )
         },
-        //TODO: Check it out in class, since if a user(doctor) is deleted, what is going to happen with all their patients?
+
         deleteUser: async (parent, { userId }) => {
             return User.findOneAndRemove({ _id: userId });
         },
@@ -127,7 +127,7 @@ const resolvers = {
         deletePatient: async (parent, { patientId }) => {
             return Patient.findOneAndRemove({ _id: patientId });
         },
-        //DOUBLE CHECK WITH TEACHERS
+
         addMedicalRecord: async (parent, {
             userId,
             patientId,

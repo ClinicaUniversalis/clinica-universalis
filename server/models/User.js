@@ -59,17 +59,17 @@ userSchema.pre('save', async function (next) {
 });
 
 //set up pre-update middleware to update password
-userSchema.pre('updateOne', async function (next) {
-  if (this.isNew || this.isModified('password')) {
+userSchema.pre("findOneAndUpdate", async function (next) {
+  const user = this;
+  if (user.getUpdate().$set?.password !== undefined) {
     const saltRounds = 10;
-    this.password = await bcrypt.hash(this.password, saltRounds);
+    user.getUpdate().$set.password = await bcrypt.hash(user.getUpdate().$set.password, saltRounds);
+  } else {
+    return next();
   }
-
-  next();
 });
 
 // compare the incoming password with the hashed password
-//TODO: ASK TO TEACHERS WHY IS NOT EXECUTING THIS MIDDLEWARE
 userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
