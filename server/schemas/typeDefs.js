@@ -43,21 +43,31 @@ const typeDefs = gql`
         createdAt: Date!
     }
 
+    type MedicalRecordResponse {
+        medicalRecord: MedicalRecord
+        user: User
+        patient: Patient
+    }
+
     type Query {
         users: [User]
         user(userId: ID!): User
         patients: [Patient]
-        medicalrecords: [MedicalRecord]
         patient(patientId: ID!) : Patient
+        medicalrecords: [MedicalRecord]
+        medicalrecord(medicalRecordId: ID!) : MedicalRecord
     }
 
     type Mutation {
         addUser(name: String!, lastname: String!, birthdate: Date!, email: String!, licenseid: String!, specialty: String!, username: String!, password: String!): User
-        editUser(userId: ID!, name: String, lastname: String, birthdate: String, email: String): User
+        editUser(userId: ID!, name: String, lastname: String, birthdate: String, email: String, username: String, password: String): User
         deleteUser(userId: ID!): User
         addPatient(name: String!, lastname: String!, birthdate: Date!, officialID: String!, email: String!, bloodgroup: String, phone: String): Patient
         editPatient(patientId: ID!, name: String, lastname: String, birthdate: Date, email: String, bloodgroup: String, phone: String): Patient
         deletePatient(patientId: ID!): Patient
+        addMedicalRecord(userId: ID!, patientId: ID!, medicalstory: String!, currentcondition: String!, physicalexploration: String!, diagnostic: String!, treatment_prescription: String!, orderofstudies: String!): MedicalRecordResponse
+        editMedicalRecord(medicalRecordId: ID!, medicalstory: String, currentcondition: String, physicalexploration: String, diagnostic: String, treatment_prescription: String, orderofstudies: String): MedicalRecord
+        deleteMedicalRecord(medicalRecordId: ID!): MedicalRecordResponse
     }
 `;
 

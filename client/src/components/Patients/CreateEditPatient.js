@@ -4,7 +4,10 @@ import { Form, Button, Alert, Row, Col, Modal } from 'react-bootstrap';
 // Here we import a helper function that will check if the email is valid
 //import { checkPassword, validateUsername, validateEmail, validateId } from '../../utils/helpers';
 
-function CreateEditPatient() {
+function CreateEditPatient({
+    show = false,
+    handleClose,
+}) {
     // Create state variables for the fields in the form
     // We are also setting their initial values to an empty string
     const [name, setName] = useState('');
@@ -15,13 +18,6 @@ function CreateEditPatient() {
     const [bloodgroup, setBloodGroup] = useState('');
     const [phone, setPhone] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    // handleShow();
 
     const handleInputChange = (e) => {
         // Getting the value and name of the input which triggered the change
@@ -60,7 +56,8 @@ function CreateEditPatient() {
         // }
 
 
-        alert(`${name} ${lastName} was added`);
+
+        alert(`HELLO!`);
 
         // If everything goes according to plan, we want to clear out the input after a successful registration.
         setName('');
@@ -76,12 +73,11 @@ function CreateEditPatient() {
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
+                <Modal.Title>New Patient</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {/* New Patient form section */}
-                <Form>
-                    <h5 className="fw-normal mb-3 pb-3" style={{ letterSpacing: "1px" }}>New Patient</h5>
+                <Form onSubmit={handleFormSubmit}>
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="formGridName">
                             <Form.Label>Name</Form.Label>
@@ -167,13 +163,12 @@ function CreateEditPatient() {
                         </Form.Group>
 
                     </Row>
+                    <Button size='lg' variant="dark" type="submit">
+                        Submit
+                    </Button>
                 </Form>
             </Modal.Body>
-            <Modal.Footer>
-                <Button size='lg' variant="dark" type="submit">
-                    Submit
-                </Button>
-            </Modal.Footer>
+
             {errorMessage && (
                 <Alert variant="info" onClose={() => setErrorMessage('')} dismissible>
                     <p>{errorMessage}</p>
