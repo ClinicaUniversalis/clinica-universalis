@@ -17,10 +17,10 @@ const resolvers = {
             return MedicalRecord.find({});
         },
         user: async (parent, { userId }) => {
-            return User.findOne({ _id: userId });
+            return User.findOne({ _id: userId }).populate('patients');
         },
         patient: async (parent, { patientId }) => {
-            return Patient.findOne({ _id: patientId });
+            return Patient.findOne({ _id: patientId }).populate('medicalrecords');
         },
         medicalrecord: async (parent, { medicalRecordId }) => {
             return Patient.findOne({ _id: medicalRecordId });
@@ -28,33 +28,55 @@ const resolvers = {
     },
 
     Mutation: {
+        login: async (parent, { username, password }) => {
+            const user = await User.findOne({ username });
+
+            if (!user) {
+                throw new AuthenticationError('No user with this username found!');
+            }
+
+            const correctPw = await user.isCorrectPassword(password);
+
+            if (!correctPw) {
+                throw new AuthenticationError('Incorrect password!');
+            }
+
+            const token = signToken(user);
+
+            return { token, user };
+        },
+        //User mutations
         addUser: async (parent, {
             name,
             lastname,
-            birthdate,
+            dob,
             email,
             licenseid,
             specialty,
             username,
             password
         }) => {
-            return User.create({
+            const user = User.create({
                 name,
                 lastname,
-                birthdate,
+                dob,
                 email,
                 licenseid,
                 specialty,
                 username,
                 password
             })
+
+            const token = signToken(user);
+
+            return { token, user };
         },
-        //TODO: Ask how to update any params that are sent maybe with ...params?
+
         editUser: async (parent, {
             userId,
             name,
             lastname,
-            birthdate,
+            dob,
             email,
             username,
             password
@@ -65,7 +87,7 @@ const resolvers = {
                     $set: {
                         name,
                         lastname,
-                        birthdate,
+                        dob,
                         email,
                         username,
                         password
@@ -125,9 +147,15 @@ const resolvers = {
         },
 
         deletePatient: async (parent, { patientId }) => {
-            return Patient.findOneAndRemove({ _id: patientId });
+            const patient = Patient.findOneAndRemove({ _id: patientId });
+            User.findOneAndUpdate(
+                { patients: patientId },
+                { $pull: { patients: patientId } },
+                { new: true }
+            )
+            return patient;
         },
-
+        //Medical Records mutations
         addMedicalRecord: async (parent, {
             userId,
             patientId,
