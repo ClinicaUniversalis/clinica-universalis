@@ -14,6 +14,15 @@ import CreateEditPatient from './CreateEditPatient';
 const SearchGrid = () => {
     const gridRef = useRef();
     const [rowData, setRowData] = useState(); // Set rowData to Array of Objects, one Object per Row
+    const [showLimitedPatientInfoModal, setShowLimitedPatientInfoModal] = useState(false);
+
+    const handleShowLimitedPatientInfoModalOpen = () => {
+        showLimitedPatientInfoModal(true);
+    }
+
+    const handleCreatePatientModalClose = () => {
+        showLimitedPatientInfoModal(false);
+    }
 
     // Column Definition results in one Column.
     const [columnDefs, setColumnDefs] = useState([
@@ -62,7 +71,7 @@ const SearchGrid = () => {
                             columnDefs={columnDefs} // Column Defs for Columns
                             defaultColDef={defaultColDef} // Default Column Properties
                             animateRows={true} // Optional - set to 'true' to have rows animate when sorted
-                            rowSelection='multiple' // Options - allows click selection of rows
+                            rowSelection='single' // Options - allows click selection of rows
                             onCellClicked={cellClickedListener} // Optional - registering for Grid Event
                         />
                     </div>
