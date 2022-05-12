@@ -1,50 +1,51 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert, Card, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
+import { LOGIN_USER } from '../../utils/mutations';
 
-// Here we import a helper function that will check if the email is valid
-import { validatePassword, validateUsername } from '../../utils/helpers';
+import Auth from '../../utils/auth';
 
 const Login = () => {
   // Create state variables for the fields in the form
   // We are also setting their initial values to an empty string
-  const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [show, setShow] = useState(false);
+  const [formState, setFormState] = useState({ username: '', password: '' });
+  const [login, { error }] = useMutation(LOGIN_USER);
 
   const handleInputChange = (e) => {
     // Getting the value and name of the input which triggered the change
-    const { target } = e;
-    const inputType = target.name;
-    const inputValue = target.value;
+    const { name, value } = e.target;
 
-    // Based on the input type, we set the state of either email, username, and password
-    if (inputType === 'userName') {
-      setUserName(inputValue);
-    } else {
-      setPassword(inputValue);
-    }
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
   };
 
-  const handleFormSubmit = (e) => {
-    // Preventing the default behavior of the form submit (which is to refresh the page)
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
+    try {
+      if(error) setShow(true);
+      const { data } = await login({
+        variables: { ...formState },
+      });
 
-    // TODO validate username and password, the following code is just a test to validate the alert
-    // if (userName != 'test') {
-    //   setErrorMessage(
-    //     `Wrong username or password!`
-    //   );
-    //   return;
-    // }
+      Auth.login(data.login.token);
+    } catch (e) {
+      console.error(e);
+    }
 
-
-    alert(`Welcome ${userName}`);
-
-    // If everything goes according to plan, we want to clear out the input after a successful registration.
-    setUserName('');
-    setPassword('');
+    // clear form values
+    setFormState({
+      email: '',
+      password: '',
+    });
   };
+
+  const closeAlert = async () => {
+    setShow(false);
+  }
 
   return (
     <Row className="d-flex justify-content-center align-items-center h-100">
@@ -58,15 +59,15 @@ const Login = () => {
             <Col md={6} lg={7} className="d-flex align-items-center">
               <Card.Body className="card-body p-4 p-lg-5 text-black">
                 {/* Login form section */}
-                <Form>
+                <Form onSubmit={handleFormSubmit}>
                   <h5 className="fw-normal mb-3 pb-3" style={{ letterSpacing: "1px" }}>Sign into your Universalis account</h5>
                   <Form.Group className="mb-3" controlId="username">
                     <Form.Control
                       size='lg'
                       type="username"
                       placeholder="Username"
-                      name='userName'
-                      value={userName}
+                      name='username'
+                      value={formState.username}
                       onChange={handleInputChange} />
                     <Form.Label>Username</Form.Label>
                   </Form.Group>
@@ -77,13 +78,13 @@ const Login = () => {
                       type="password"
                       placeholder="Password"
                       name='password'
-                      value={password}
+                      value={formState.password}
                       onChange={handleInputChange} />
                     <Form.Label>Password</Form.Label>
                   </Form.Group>
 
                   <div className="pt-1 mb-4">
-                    <Button size='lg' variant="dark" onClick={handleFormSubmit}>
+                    <Button type='submit' size='lg' variant="dark">
                       Login
                     </Button>
                   </div>
@@ -94,12 +95,11 @@ const Login = () => {
                     <Link to='/signup' style={{ color: "#393f81" }}>Register here</Link>
                   </p>
 
-                  {/* <a href="#!" className="small text-muted">Terms of use.</a> */}
                   <Link className="small text-muted" to='/privacy'>Privacy policy</Link>
                 </Form>
-                {errorMessage && (
-                  <Alert variant="info" onClose={() => setErrorMessage('')} dismissible>
-                    <p>{errorMessage}</p>
+                {error && (
+                  <Alert show={show} variant="info" onClose={() => closeAlert()} dismissible>
+                    <p>{error.message}</p>
                   </Alert>
                 )}
               </Card.Body>

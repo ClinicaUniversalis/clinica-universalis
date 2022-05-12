@@ -26,8 +26,8 @@ const RecordsGrid = () => {
 
     // Column Definition results in one Column.
     const [columnDefs, setColumnDefs] = useState([
-        { field: 'date', filter: true},
-        { field: 'diagnostic', filter: true},        
+        { field: 'date', filter: true },
+        { field: 'diagnostic', filter: true },
     ]);
 
     // DefaultColDef sets props common to all Columns
@@ -42,9 +42,10 @@ const RecordsGrid = () => {
 
     // Example load data from sever
     useEffect(() => {
-        fetch('https://www.ag-grid.com/example-assets/row-data.json')
-            .then(result => result.json())
-            .then(rowData => setRowData(rowData))
+        // fetch('https://www.ag-grid.com/example-assets/row-data.json')
+        //     .then(result => result.json())
+        //     .then(rowData => setRowData(rowData))
+        setRowData([{date: '03-12-2020', diagnostic: 'Concussion'}]);
     }, []);
 
     // Example using Grid's API
@@ -60,9 +61,6 @@ const RecordsGrid = () => {
                     handleClose={handleEditPatientModalClose}
                 />
             ) : null}
-
-           
-
 
             {rowData ? (
                 <Container>

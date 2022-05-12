@@ -5,7 +5,7 @@ const patientSchema = new Schema(
   {
     name: { type: String, required: true, trim: true },
     lastname: { type: String, required: true, trim: true },
-    birthdate: { type: Date, required: true, trim: true },
+    dob: { type: Date, required: true, trim: true },
     officialID: { type: String, unique: true, required: true, trim: true },
     email: {
       type: String,

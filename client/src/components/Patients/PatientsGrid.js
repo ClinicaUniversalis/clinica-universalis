@@ -1,11 +1,7 @@
 import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { AgGridReact } from 'ag-grid-react'; // the AG Grid React Component
-import 'ag-grid-community/dist/styles/ag-grid.css'; // Core grid CSS, always needed
-import 'ag-grid-community/dist/styles/ag-theme-alpine.css'; // Optional theme CSS
-import { Row, NavLink, Button, Tab, Container } from 'react-bootstrap';
+import { Row, NavLink, Container } from 'react-bootstrap';
 import { BsPersonPlusFill } from 'react-icons/bs';
-import { render } from 'react-dom';
-
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import Spinner from '../../components/Spinner/Spinner';

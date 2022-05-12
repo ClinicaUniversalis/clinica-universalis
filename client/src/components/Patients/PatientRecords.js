@@ -1,49 +1,64 @@
 import React from 'react';
-import { Container, Tabs, Tab, Form, Row, Col, Button  } from 'react-bootstrap';
+import { Container, Row, Col, Button, Card } from 'react-bootstrap';
+import { useState } from 'react';
 import RecordsGrid from './RecordsGrid';
-//import PatientsGrid from './PatientsGrid';
+import CreateMedicalRecord from './CreateMedicalRecord';
 import './PatientRecords.css';
-import fotoPerfil from './data/fotoPerfil.webp'
+import patientAvatar from '../../libs/images/patient_avatar.jpg'
 
 const PatientRecords = () => {
+    const [showCreateMedicalRecordModal, setShowCreateMedicalRecordModal] = useState(false);
+    //TODO: CREATE LOGIC TO SHOW CREATE MEDICAL RECORD MODAL, SEE PATIENTS GRID AS EXAMPLE
 
     return (
-       
-            <div className="card" style={{ borderRadius: "1rem" }}>
-                <div className="card-body p-4 p-lg-5 text-black">
+        <>
+            {showCreateMedicalRecordModal ? (
+                <CreateMedicalRecord
+                // show={showCreateRecordModal}
+                // handleClose={handleCreateRecordModalClose}
+                />
+            ) : null}
+
+            <Card className="card" style={{ borderRadius: "1rem" }}>
+                <Card.Body className="p-4 p-lg-5 text-black">
                     {/* Patient records */}
-                    <h2 className="fw-normal mb-3 pb-3" style={{ letterSpacing: "1px" }}>Medical Records</h2>
-                    <div className="container">                        
-                        <div className="row">
-                            <div className="col-sm-4" style={{backgroundColor:"aliceblue"}}>
-                            <p>Patient:</p>
-                            <div className="d-flex align-items-center center" >
-                                <img src={fotoPerfil} alt="Perfil" className="avatar" />                                
-                            </div>
-                            <div>
-                                <p>Marco Antonio González Guzmán</p>
-                                <p>Birthday: 11/13/1977</p>
-                                <p>Bloud Group: A+</p>
-                            </div>
-                            </div>
-                            <div className="col-sm-8" style={{backgroundColor:"lightsteelblue"}}>
-                                <p>Records:</p>
+                    <Card.Title>Medical Records</Card.Title>
+                    {/* <h2 className="fw-normal mb-3 pb-3" style={{ letterSpacing: "1px" }}>Medical Records</h2> */}
+                    <Container>
+                        <Row>
+                            <Col>
+                                <Card style={{ width: '18rem' }}>
+                                    <Card.Img className='circle' variant="top" src={patientAvatar} />
+                                    <Card.Body>
+                                        <Card.Text>
+                                            Marco Antonio Gonzalez Guzman
+                                        </Card.Text>
+                                        <Card.Text>
+                                            Birthday: 11/13/1977
+                                        </Card.Text>
+                                        <Card.Text>
+                                            Bloud Group: A+
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                            <Col sm={8} style={{ backgroundColor: "aliceblue" }}>
+                                <h5>Records:</h5>
                                 <RecordsGrid />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-sm-4" style={{paddingTop:"15px"}}>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <div className="col-sm-4" style={{ paddingTop: "15px" }}>
                                 <Button size='md' variant="dark" type="submit">
                                     Add Record
                                 </Button>
                             </div>
-                        </div>
-                    </div>
-                        
+                        </Row>
+                    </Container>
 
-                </div>
-            </div>
-        
+                </Card.Body>
+            </Card>
+        </>
     );
 };
 
