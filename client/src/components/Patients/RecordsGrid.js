@@ -1,13 +1,17 @@
 import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { AgGridReact } from 'ag-grid-react'; // the AG Grid React Component
-import { Row, NavLink, Container } from 'react-bootstrap';
+import 'ag-grid-community/dist/styles/ag-grid.css'; // Core grid CSS, always needed
+import 'ag-grid-community/dist/styles/ag-theme-alpine.css'; // Optional theme CSS
+import { Row, NavLink, Button, Tab, Container } from 'react-bootstrap';
 import { BsPersonPlusFill } from 'react-icons/bs';
+import { render } from 'react-dom';
+
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import Spinner from '../../components/Spinner/Spinner';
 import CreateEditPatient from './CreateEditPatient';
 
-const PatientsGrid = () => {
+const RecordsGrid = () => {
     const gridRef = useRef();
     const [showCreateEditPatientModal, setShowCreateEditPatientModal] = useState(false);
     const [rowData, setRowData] = useState(); // Set rowData to Array of Objects, one Object per Row
@@ -22,10 +26,8 @@ const PatientsGrid = () => {
 
     // Column Definition results in one Column.
     const [columnDefs, setColumnDefs] = useState([
-        { field: 'delete', filter: true},
-        { field: 'full name', filter: true},
-        { field: 'email', filter: true },
-        { field: 'phone', filter: true },
+        { field: 'date', filter: true },
+        { field: 'diagnostic', filter: true },
     ]);
 
     // DefaultColDef sets props common to all Columns
@@ -40,9 +42,10 @@ const PatientsGrid = () => {
 
     // Example load data from sever
     useEffect(() => {
-        fetch('https://www.ag-grid.com/example-assets/row-data.json')
-            .then(result => result.json())
-            .then(rowData => setRowData(rowData))
+        // fetch('https://www.ag-grid.com/example-assets/row-data.json')
+        //     .then(result => result.json())
+        //     .then(rowData => setRowData(rowData))
+        setRowData([{date: '03-12-2020', diagnostic: 'Concussion'}]);
     }, []);
 
     // Example using Grid's API
@@ -59,23 +62,10 @@ const PatientsGrid = () => {
                 />
             ) : null}
 
-            <Row>
-                <NavLink>
-                    <BsPersonPlusFill
-                        data-testid="addPatientButton"
-                        size={60}
-                        style={{ padding: '15px' }}
-                        className={'text-primary'}
-                        onClick={() => handleCreatePatientModalOpen()}
-                    />
-                </NavLink>
-            </Row>
-
-
             {rowData ? (
                 <Container>
                     {/* On div wrapping Grid a) specify theme CSS Class Class and b) sets Grid size */}
-                    <div className="ag-theme-alpine" style={{ width: 800, height: 400 }}>
+                    <div className="ag-theme-alpine col-sm-8" style={{ width: '90%', height: 400 }}>
                         <AgGridReact
                             ref={gridRef} // Ref for accessing Grid's API
                             rowData={rowData} // Row Data for Rows
@@ -94,4 +84,4 @@ const PatientsGrid = () => {
     );
 };
 
-export default PatientsGrid;
+export default RecordsGrid;

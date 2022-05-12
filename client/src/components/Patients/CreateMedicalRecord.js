@@ -4,7 +4,7 @@ import { Form, Button, Alert, Row, Col } from 'react-bootstrap';
 // Here we import a helper function that will check if the email is valid
 //import { checkPassword, validateUsername, validateEmail, validateId } from '../../utils/helpers';
 
-function NewMedicalRecord() {
+function CreateMedicalRecord() {
     // Create state variables for the fields in the form
     // We are also setting their initial values to an empty string
     const [medicalstory, setMedicalStory] = useState('');
@@ -169,4 +169,4 @@ function NewMedicalRecord() {
     );
 }
 
-export default NewMedicalRecord;
+export default CreateMedicalRecord;
