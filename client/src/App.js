@@ -8,6 +8,7 @@ import Patients from './components/Patients/Patients';
 import ResetPassword from './components/Singin/ResetPassword';
 import CreateEditPatient from './components/Patients/CreateEditPatient'
 import NewMedicalRecord from './components/Patients/NewMedicalRecord'
+import PatientRecords from './components/Patients/PatientRecords'
 import {
   BrowserRouter as Router,
   Route,
@@ -48,6 +49,7 @@ function App() {
               <Route path='/patients' element={<Patients />}></Route>
               <Route path='/newpatient' element={<CreateEditPatient />}></Route>
               <Route path='/newmedicalrecord' element={<NewMedicalRecord />}></Route>
+              <Route path='/patientrecords' element={<PatientRecords />}></Route>
               {/* TODO add more routes */}
             </Routes>
           </Container>
