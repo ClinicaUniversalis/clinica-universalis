@@ -7,15 +7,18 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 
 import Login from './components/Singin/Login';
 import SingUp from './components/Singin/SignUp';
-import Dashboard from './components/Dashboard';
+import Dashboard from './components/Dashboard/Dashboard';
 import Patients from './components/Patients/Patients';
 import ResetPassword from './components/Singin/ResetPassword';
 import CreateEditPatient from './components/Patients/CreateEditPatient';
 import NewMedicalRecord from './components/Patients/NewMedicalRecord';
+import Home from './components/Home/Home';
+import Auth from './utils/auth';
+import universalisLogo from './libs/images/universalis_logo1.png';
 
 
 // Construct our main GraphQL API endpoint
@@ -43,27 +46,34 @@ const client = new ApolloClient({
 });
 
 function App() {
-  console.log(client);
-  const isLoggedIn = () => {
-    return false;
-  }
-
   return (
     <ApolloProvider client={client}>
       <Router>
         <Navbar bg="light" variant="light">
           <Container>
-            <Navbar.Brand href={isLoggedIn ? '/dashboard' : '/login'}>Navbar</Navbar.Brand>
+            <Navbar.Brand href={Auth.loggedIn() ? '/home' : '/login'}>
+              <img
+                src={universalisLogo}
+                width="50"
+                height="50"
+                className="d-inline-block align-top"
+                alt="React Bootstrap logo"
+              />
+            </Navbar.Brand>
             <Nav className="me-auto">
-              <Nav.Link href="/login">Home</Nav.Link>
-              <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-              <Nav.Link className='btn dark' href="/home">Logout</Nav.Link>
+              <Nav.Link href="/home">Home</Nav.Link>
+              <Nav.Link href={Auth.loggedIn() ? '/dashboard' : 'login'}>Dashboard</Nav.Link>
             </Nav>
+            <Button variant="outline-info" onClick={() => Auth.logout()}>Logout</Button>
           </Container>
         </Navbar>
         <div className="vh-100" style={{ backgroundColor: "#ADCADB" }}>
           <Container className="py-5 h-100">
             <Routes>
+              <Route
+                path='/home'
+                element={<Home />}
+              />
               <Route
                 path='/login'
                 element={<Login />}
