@@ -36,7 +36,6 @@ const SingUp = () => {
 
         try {
             if(error) setShow(true);
-            console.log(formState);
             const { data } = await addUser({
                 variables: { ...formState }
             });
