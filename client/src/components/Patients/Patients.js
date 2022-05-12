@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Tabs, Tab } from 'react-bootstrap';
 import PatientsGrid from './PatientsGrid';
+import SearchGrid from './SearchGrid';
 
 
 const Patients = () => {
@@ -12,7 +13,7 @@ const Patients = () => {
                     <PatientsGrid />
                 </Tab>
                 <Tab eventKey="search" title="Search">
-                    {/* <SearchGrid /> */}
+                    <SearchGrid />
                 </Tab>
             </Tabs>
         </Container>
