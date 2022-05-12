@@ -15,7 +15,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Patients from './components/Patients/Patients';
 import ResetPassword from './components/Singin/ResetPassword';
 import CreateEditPatient from './components/Patients/CreateEditPatient';
-import NewMedicalRecord from './components/Patients/NewMedicalRecord';
+import CreateMedicalRecord from './components/Patients/CreateMedicalRecord';
 import PatientRecords from './components/Patients/PatientRecords';
 import Home from './components/Home/Home';
 import Auth from './utils/auth';
@@ -101,7 +101,7 @@ function App() {
               />
               <Route
                 path='/newmedicalrecord'
-                element={<NewMedicalRecord />}
+                element={<CreateMedicalRecord />}
               />
               <Route
                 path='/patientrecords'
