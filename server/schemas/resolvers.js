@@ -29,16 +29,21 @@ const resolvers = {
 
     Mutation: {
         login: async (parent, { username, password }) => {
+
+            if (username === undefined || username === null || username === "" || password === undefined || password === null || password === "") {
+                throw new AuthenticationError('Username and password fields cannot be empty')
+            }
+
             const user = await User.findOne({ username });
 
             if (!user) {
-                throw new AuthenticationError('No user with this username found!');
+                throw new AuthenticationError('Incorrect username or password!');
             }
 
             const correctPw = await user.isCorrectPassword(password);
 
-            if (!correctPw) {
-                throw new AuthenticationError('Incorrect password!');
+            if(!correctPw){
+                throw new AuthenticationError('Incorrect username or password!');
             }
 
             const token = signToken(user);

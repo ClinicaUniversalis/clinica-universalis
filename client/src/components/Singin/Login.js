@@ -26,19 +26,23 @@ const Login = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      if(error) setShow(true);
+
       const { data } = await login({
         variables: { ...formState },
       });
 
       Auth.login(data.login.token);
+
     } catch (e) {
       console.error(e);
+    } finally {
+      if(error) setShow(true);
     }
+    
 
     // clear form values
     setFormState({
-      email: '',
+      username: '',
       password: '',
     });
   };
@@ -65,11 +69,11 @@ const Login = () => {
                     <Form.Control
                       size='lg'
                       type="username"
-                      placeholder="Username"
+                      placeholder="Email"
                       name='username'
                       value={formState.username}
                       onChange={handleInputChange} />
-                    <Form.Label>Username</Form.Label>
+                    <Form.Label>Email</Form.Label>
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="password">

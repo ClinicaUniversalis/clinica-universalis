@@ -6,7 +6,7 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 
 import Login from './components/Singin/Login';
@@ -107,6 +107,8 @@ function App() {
                 path='/patientrecords'
                 element={<PatientRecords />}
               />
+              <Route exact path='*' element={<Navigate replace to='/home'/>}>
+              </Route>
               {/* TODO add more routes */}
             </Routes >
           </Container >

@@ -14,6 +14,7 @@ const Home = () => {
                     alt="Logo"
                     style={{ height: '80%', width: '80%' }}
                 />
+                <p> Your reliable patient clinical history tracking tool.</p>
                 <div>
                     <Link to="/login" className="authLinks btn btn-info btn-lg text-white">
                         Login
