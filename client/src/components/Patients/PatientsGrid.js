@@ -7,12 +7,12 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import Spinner from '../../components/Spinner/Spinner';
 import CreateEditPatient from './CreateEditPatient';
 import { useQuery } from '@apollo/client';
-import { QUERY_SINGLE_USER } from '../../utils/queries';
+import { QUERY_ME } from '../../utils/queries';
 
 const PatientsGrid = () => {
     const gridRef = useRef();
     const [showCreateEditPatientModal, setShowCreateEditPatientModal] = useState(false);
-    const {loading, error, data} = useQuery(QUERY_SINGLE_USER, {variables: {userId: ""}});
+    const {loading, error, data} = useQuery(QUERY_ME);
     const [rowData, setRowData] = useState(); // Set rowData to Array of Objects, one Object per Row
     const [hasPatientsUser, setHasPatientsUser] = useState(false);
 
@@ -27,7 +27,7 @@ const PatientsGrid = () => {
     // Column Definition results in one Column.
     const [columnDefs, setColumnDefs] = useState([
         { field: 'delete', filter: true},
-        { field: 'full name', filter: true},
+        { field: 'ame', filter: true},
         { field: 'email', filter: true },
         { field: 'phone', filter: true },
     ]);

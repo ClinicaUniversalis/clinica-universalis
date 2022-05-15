@@ -7,6 +7,13 @@ const resolvers = {
     Date: dateScalar,
 
     Query: {
+        me: async (parent, args, context) => {
+            if(!context.user){
+                throw AuthenticationError("Unable to display data: User isn't logged in.")
+            }
+
+            return User.findOne({_id: context.user._id});
+        },
         users: async () => {
             return User.find({});
         },
