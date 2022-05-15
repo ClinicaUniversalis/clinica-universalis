@@ -6,11 +6,15 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import Spinner from '../../components/Spinner/Spinner';
 import CreateEditPatient from './CreateEditPatient';
+import { useQuery } from '@apollo/client';
+import { QUERY_ME } from '../../utils/queries';
 
 const PatientsGrid = () => {
     const gridRef = useRef();
     const [showCreateEditPatientModal, setShowCreateEditPatientModal] = useState(false);
+    const {loading, error, data} = useQuery(QUERY_ME);
     const [rowData, setRowData] = useState(); // Set rowData to Array of Objects, one Object per Row
+    const [hasPatientsUser, setHasPatientsUser] = useState(false);
 
     const handleCreatePatientModalOpen = () => {
         setShowCreateEditPatientModal(true);
@@ -23,7 +27,7 @@ const PatientsGrid = () => {
     // Column Definition results in one Column.
     const [columnDefs, setColumnDefs] = useState([
         { field: 'delete', filter: true},
-        { field: 'full name', filter: true},
+        { field: 'ame', filter: true},
         { field: 'email', filter: true },
         { field: 'phone', filter: true },
     ]);
@@ -58,19 +62,6 @@ const PatientsGrid = () => {
                     handleClose={handleEditPatientModalClose}
                 />
             ) : null}
-
-            <Row>
-                <NavLink>
-                    <BsPersonPlusFill
-                        data-testid="addPatientButton"
-                        size={60}
-                        style={{ padding: '15px' }}
-                        className={'text-primary'}
-                        onClick={() => handleCreatePatientModalOpen()}
-                    />
-                </NavLink>
-            </Row>
-
 
             {rowData ? (
                 <Container>

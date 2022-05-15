@@ -1,8 +1,8 @@
 import React from 'react';
 import './Home.css';
 import { Link, Navigate } from 'react-router-dom';
-import Auth from '../../utils/auth';
-import universalisLogo from '../../libs/images/universalis_logo.png';
+import Auth from '../utils/auth';
+import universalisLogo from '../libs/images/universalis_logo.png';
 import { Container } from 'react-bootstrap';
 
 const Home = () => {
@@ -14,6 +14,7 @@ const Home = () => {
                     alt="Logo"
                     style={{ height: '80%', width: '80%' }}
                 />
+                <p> Your reliable patient clinical history tracking tool.</p>
                 <div>
                     <Link to="/login" className="authLinks btn btn-info btn-lg text-white">
                         Login

@@ -7,6 +7,8 @@ import { ADD_USER } from '../../utils/mutations';
 const SingUp = () => {
     // Create state variables for the fields in the form
     // We are also setting their initial values to an empty string
+    const [errorDisplay, setErrorDisplay] = useState('Unidentified server error');
+    const [loadingDisplay, setLoadingMessage] = useState('Loading');
     const [show, setShow] = useState(false);
     const [formState, setFormState] = useState({
         name: '',
@@ -33,19 +35,78 @@ const SingUp = () => {
     const handleFormSubmit = async (e) => {
         // Preventing the default behavior of the form submit (which is to refresh the page)
         e.preventDefault();
-
+        setShow(true);
         try {
-            if(error) setShow(true);
+            setLoadingMessage('Checking user data');
+
+            // Try to create user with input data
             const { data } = await addUser({
                 variables: { ...formState }
             });
-            console.log(data);
+
             Auth.login(data.addUser.token);
-            alert(`Welcome ${data.addUser.username}`);
+            alert(`Welcome ${data.addUser.user.username}`);
+            setShow(false);
         } catch (e) {
             console.log(e);
+            defineErrorMessage(e)
         }
     };
+
+    const defineErrorMessage = async (error) => {
+        // Catch error as to not display verbose
+        let error500 = false;
+        if(error) {
+          error500 = error.message.includes('JSON');
+          if (error500){
+            console.error("Internal server error: ", error);
+            setErrorDisplay('Internal server error; unable to process login at the moment.');
+            setShow(true);
+          } else {
+              let missingFields = (error.message.match(/is required/g) || []).length
+              if (missingFields >= 2) {
+                  setErrorDisplay("Please fill all the missing fields.")
+                  throw(error, "Multiple missing fields")
+              } 
+              if (missingFields === 1) {
+                  switch(true){
+                        case error.message.includes('name:'):
+                          setErrorDisplay("Please enter your name")
+                          break;
+                        case error.message.includes('lastname:'):
+                            setErrorDisplay("Plese enter your Last Name")
+                            break;
+                        case error.message.includes('username:'):
+                            setErrorDisplay("A username is required.")
+                            break;
+                        case error.message.includes('password:'):
+                            setErrorDisplay("A password is required")
+                            break;
+                        case error.message.includes('email:'):
+                            setErrorDisplay("A valid email is required")
+                            break;
+                        case error.message.includes('licenseid:'):
+                            setErrorDisplay("A valid 7 or 8 digit medical license is required.")
+                            break;
+                        default:
+                            setErrorDisplay("Missing a critical field.")
+                  }
+                  throw(error, "Error: Missing critical information in user registry form.")
+              }
+
+              if(error.message.includes("Invalid Date")){
+                  setErrorDisplay("Please enter a valid birth date.");
+                  throw(error, "Invalid Date provided");
+              }
+
+              if(error.message.includes("duplicate key")){
+                  setErrorDisplay("Another user has been created with the same username, email or license number.");
+                  throw(error, "A user with this information already exists.")
+              }
+            setErrorDisplay(error.message);
+          }
+        };
+    }
 
     const closeAlert = async () => {
         setShow(false);
@@ -158,9 +219,13 @@ const SingUp = () => {
                             Submit
                         </Button>
                     </Form>
-                    {error && (
+                    {error ? (
                         <Alert show={show} variant="info" onClose={() => closeAlert()} dismissible>
-                            <p>{error.message}</p>
+                            <p>{errorDisplay}</p>
+                        </Alert>
+                    ) : (
+                        <Alert show={show} variant="info" onClose={() => closeAlert()} dismissible>
+                            <p>{loadingDisplay}</p>
                         </Alert>
                     )}
                 </Card.Body>

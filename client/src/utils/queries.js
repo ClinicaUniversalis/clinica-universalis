@@ -14,7 +14,7 @@ export const QUERY_USERS = gql`
 
 export const QUERY_SINGLE_USER = gql`
   query getSingleUser($userId: ID!) {
-    user(usertId: $userId) {
+    user(userId: $userId) {
       _id
       name
       lastname
@@ -103,4 +103,31 @@ export const QUERY_SINGLE_MEDICALRECORD = gql`
       createdAt      
     }
   }
-`;
+`
+export const QUERY_ME = gql`
+  query Me{
+    me {
+      username
+      email
+      name
+      lastname
+      patients {
+        _id
+        name
+        lastname
+        email
+      }
+      medicalrecords {
+        _id
+        medicalstory
+        currentcondition
+        physicalexploration
+        treatment_prescription
+        orderofstudies
+        createdAt
+      }
+    }
+  }
+`
+
+;

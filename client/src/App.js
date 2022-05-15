@@ -6,18 +6,18 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 
 import Login from './components/Singin/Login';
 import SingUp from './components/Singin/SignUp';
-import Dashboard from './components/Dashboard/Dashboard';
-import Patients from './components/Patients/Patients';
+import Dashboard from './pages/Dashboard';
+import Patients from './pages/Patients';
 import ResetPassword from './components/Singin/ResetPassword';
 import CreateEditPatient from './components/Patients/CreateEditPatient';
 import CreateMedicalRecord from './components/Patients/CreateMedicalRecord';
 import PatientRecords from './components/Patients/PatientRecords';
-import Home from './components/Home/Home';
+import Home from './pages/Home';
 import Auth from './utils/auth';
 import universalisLogo from './libs/images/universalis_logo1.png';
 
@@ -107,6 +107,8 @@ function App() {
                 path='/patientrecords'
                 element={<PatientRecords />}
               />
+              <Route exact path='*' element={<Navigate replace to='/home'/>}>
+              </Route>
               {/* TODO add more routes */}
             </Routes >
           </Container >
