@@ -12,6 +12,8 @@ const Login = () => {
   const [show, setShow] = useState(false);
   const [formState, setFormState] = useState({ username: '', password: '' });
   const [login, { error }] = useMutation(LOGIN_USER);
+  const [errorDisplay, setErrorDisplay] = useState('Unidentified server error');
+  const [loadingDisplay, setLoadingMessage] = useState('Loading');
 
   const handleInputChange = (e) => {
     // Getting the value and name of the input which triggered the change
@@ -25,18 +27,35 @@ const Login = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    setShow(true);
     try {
 
+      // Attempting login
+      setLoadingMessage('Checking user data');
       const { data } = await login({
         variables: { ...formState },
       });
 
       Auth.login(data.login.token);
-
+      setShow(false);
     } catch (e) {
-      console.error(e);
+      
+      //Login failed
+      setErrorDisplay(e.message);
+      console.error(e.message);
     } finally {
-      if(error) setShow(true);
+
+      // Catch 500 error as to not display verbose
+      let error500 = false;
+      if(error) {
+        setErrorDisplay(error.message);
+        error500 = error.message.includes('JSON');
+        if (error500){
+          console.error("Internal server error: ", error);
+          setErrorDisplay('Internal server error; unable to process login at the moment.');
+          setShow(true);
+        }
+      };
     }
     
 
@@ -101,11 +120,13 @@ const Login = () => {
 
                   <Link className="small text-muted" to='/privacy'>Privacy policy</Link>
                 </Form>
-                {error && (
+                {error ? (
                   <Alert show={show} variant="info" onClose={() => closeAlert()} dismissible>
-                    <p>{error.message}</p>
+                    <p>{errorDisplay}</p>
                   </Alert>
-                )}
+                ) : <Alert show={show} variant="info" onClose={() => closeAlert()} dismissible>
+                <p>{loadingDisplay}</p>
+              </Alert>}
               </Card.Body>
             </Col>
           </Row>
