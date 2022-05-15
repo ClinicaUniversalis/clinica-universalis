@@ -98,6 +98,11 @@ const SingUp = () => {
                   setErrorDisplay("Please enter a valid birth date.");
                   throw(error, "Invalid Date provided");
               }
+
+              if(error.message.includes("duplicate key")){
+                  setErrorDisplay("Another user has been created with the same username, email or license number.");
+                  throw(error, "A user with this information already exists.")
+              }
             setErrorDisplay(error.message);
           }
         };

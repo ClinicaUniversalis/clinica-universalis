@@ -39,19 +39,16 @@ const Login = () => {
       Auth.login(data.login.token);
       setShow(false);
     } catch (e) {
-      
-      //Login failed
-      setErrorDisplay(e.message);
-      console.error(e.message);
-    } finally {
 
+      //Login failed
+      console.error(e.message);
       // Catch 500 error as to not display verbose
       let error500 = false;
-      if(error) {
-        setErrorDisplay(error.message);
-        error500 = error.message.includes('JSON');
+      if(e) {
+        setErrorDisplay(e.message);
+        error500 = e.message.includes('JSON');
         if (error500){
-          console.error("Internal server error: ", error);
+          console.error("Internal server error: ", e);
           setErrorDisplay('Internal server error; unable to process login at the moment.');
           setShow(true);
         }

@@ -1,8 +1,8 @@
 import React from 'react';
 import './Home.css';
 import { Link, Navigate } from 'react-router-dom';
-import Auth from '../../utils/auth';
-import universalisLogo from '../../libs/images/universalis_logo.png';
+import Auth from '../utils/auth';
+import universalisLogo from '../libs/images/universalis_logo.png';
 import { Container } from 'react-bootstrap';
 
 const Home = () => {
